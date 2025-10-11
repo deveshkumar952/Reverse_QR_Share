@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm start --prefix server\" \"npm start --prefix client\""
+  },
+  "dependencies": {
+    "mongodb": "^6.20.0"
+  }
+}
