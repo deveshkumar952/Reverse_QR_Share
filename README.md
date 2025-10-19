@@ -1,270 +1,91 @@
-# Reverse QR File Share System
+# Reverse QR File Share
 
-A revolutionary file sharing system where the **receiver generates a QR code** and the **sender scans it** to upload files directly to the receiver's device. Built with the MERN stack and WebSocket for real-time communication.
+A production-ready web application that enables secure file sharing through QR codes. The receiver initiates a session and displays a QR code, which the sender scans to upload files directly to cloud storage.
 
-## 🌟 How It Works
+## 🚀 Features
 
-### Traditional vs Reverse QR Sharing
+- **Reverse QR Flow**: Receiver creates session, sender scans and uploads
+- **Cloud Storage**: Files stored securely in Cloudinary (no local disk usage)
+- **Chunked Uploads**: Supports large files with resumable upload capability
+- **Real-time Progress**: Server-Sent Events (SSE) for live upload progress
+- **Secure Downloads**: Time-limited signed URLs for file access
+- **Auto Cleanup**: TTL indexes automatically remove expired sessions
+- **Production Ready**: Security headers, rate limiting, error handling
 
-**Traditional QR Sharing:**
-1. Sender uploads files → generates QR code
-2. Receiver scans QR code → downloads files
+## 🛠️ Installation
 
-**Reverse QR Sharing (Our System):**
-1. **Receiver** creates session → generates QR code
-2. **Sender** scans QR code → uploads files 
-3. **Receiver** automatically gets files downloaded
+1. **Clone and install dependencies**
+   ```bash
+   npm install
+   ```
 
-## 🚀 Key Features
+2. **Environment setup**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration values
+   ```
 
-### Core Functionality
-- **Reverse QR Workflow**: Receiver-initiated file sharing sessions
-- **Real-time Communication**: WebSocket integration for instant notifications
-- **Auto-download**: Files automatically download to receiver's device
-- **Cross-device**: Works on any device with camera and browser
-- **No Apps Required**: Pure web-based solution
+3. **Configure environment variables**
+   - `MONGODB_URI`: MongoDB Atlas connection string
+   - `CLOUDINARY_CLOUD_NAME`: Your Cloudinary cloud name
+   - `CLOUDINARY_API_KEY`: Your Cloudinary API key
+   - `CLOUDINARY_API_SECRET`: Your Cloudinary API secret
 
-### Security & Control
-- **Session Expiry**: Configurable time limits (30min - 2hrs)
-- **File Size Limits**: 100MB per file, 500MB per session
-- **File Type Validation**: Support for common file types
-- **Session Management**: Unique session IDs with cleanup
+4. **Start the application**
+   ```bash
+   # Development
+   npm run dev
 
-### User Experience
-- **Drag & Drop Upload**: Modern file selection interface
-- **Progress Tracking**: Real-time upload progress
-- **Mobile Responsive**: Works on all screen sizes
-- **Status Updates**: Live session status notifications
+   # Production
+   npm start
+   ```
 
-## 🛠️ Tech Stack
+## 📱 Usage
 
-### Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **MongoDB** - Database
-- **Socket.IO** - Real-time communication
-- **Multer** - File upload handling
-- **QRCode** - QR code generation
+### For Receivers (Creating Sessions)
+1. Navigate to the application homepage
+2. Click "Create Session"
+3. A QR code will be generated and displayed
+4. Share the QR code with the sender
+5. Monitor real-time upload progress
 
-### Frontend
-- **React 18** - UI framework
-- **Socket.IO Client** - Real-time updates
-- **Styled Components** - Styling
-- **React Router** - Navigation
-- **React Dropzone** - File upload UI
-- **QRCode.react** - QR code display
+### For Senders (Uploading Files)
+1. Scan the QR code with your device
+2. You'll be redirected to the upload page
+3. Drag and drop files or click to select
+4. Monitor upload progress in real-time
 
-## 📦 Installation & Setup
+## 🏗️ Architecture
 
-### Prerequisites
-- Node.js (v16+)
-- MongoDB (local or cloud)
-- npm or yarn
-
-### Quick Start
-
-1. **Clone the repository**
-```bash
-git clone <repository-url>
-cd reverse-qr-share
-```
-
-2. **Backend Setup**
-```bash
-cd server
-npm install
-
-# Configure environment
-cp .env .env.local
-# Edit .env with your MongoDB URI and settings
-
-# Start server
-npm run dev
-```
-
-3. **Frontend Setup**
-```bash
-cd ../client
-npm install
-
-# Start React app
-npm start
-```
-
-4. **Access Application**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
-
-## 🎯 Usage Flow
-
-### For File Receiver
-1. Go to http://localhost:3000
-2. Click "Receive Files"
-3. Show the generated QR code to sender
-4. Files will auto-download when received
-
-### For File Sender  
-1. Scan the receiver's QR code with phone camera
-2. Upload opens in browser
-3. Select and upload files
-4. Files transfer directly to receiver
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────┐    WebSocket    ┌─────────────────┐
-│   Receiver      │ ←────────────→  │     Server      │
-│   (Device 2)    │                 │   (Node.js)     │
-└─────────────────┘                 └─────────────────┘
-        ↑                                     ↑
-        │ QR Code Display                     │ File Upload
-        │                                     │
-        └─────────────────────────────────────┘
-                    Sender (Device 1)
-```
-
-### Key Components
-
-**Server Side:**
-- `/api/session` - Session management
-- `/api/upload` - File upload handling
-- Socket.IO - Real-time notifications
-- MongoDB - Session and file metadata
-
-**Client Side:**
-- `ReceivePage` - QR code generation & file monitoring
-- `SendPage` - File upload interface
-- Socket service - Real-time updates
-- Auto-download - Automatic file retrieval
-
-## 🔧 Configuration
-
-### Environment Variables
-
-**Server (.env):**
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/reverse-qr-share
-CLIENT_URL=http://localhost:3000
-DEFAULT_SESSION_EXPIRY_MINUTES=30
-MAX_FILE_SIZE=104857600
-MAX_SESSION_SIZE=524288000
-```
-
-**Client (.env):**
-```env
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-### File Upload Limits
-- **Max file size**: 100MB per file
-- **Max files**: 20 files per session
-- **Max session size**: 500MB total
-- **Session expiry**: 30 minutes - 2 hours
+- **Backend**: Node.js 18+, Express 4.x
+- **Database**: MongoDB Atlas with Mongoose 6.x
+- **Storage**: Cloudinary v2 SDK
+- **Frontend**: Vanilla JavaScript with modern ES6+
+- **Real-time**: Server-Sent Events (SSE)
+- **Security**: Helmet, CORS, rate limiting
 
 ## 🚀 Deployment
 
-### Backend (Heroku/Railway/Render)
-1. Set environment variables
-2. Configure MongoDB connection
-3. Deploy using platform CLI or Git
+The application supports deployment to multiple platforms:
+- Render.com
+- Railway
+- Fly.io
+- AWS EC2
+- Docker
 
-### Frontend (Netlify/Vercel)
-1. Build: `npm run build`
-2. Deploy `build` folder
-3. Set `REACT_APP_API_URL` environment variable
+See the deployment guide in the docs folder for detailed instructions.
 
-### Docker Deployment
-```bash
-# Build and run with Docker Compose (coming soon)
-docker-compose up --build
-```
+## 🔧 API Endpoints
 
-## 🔍 API Documentation
-
-### Session Management
-```http
-POST /api/session/create
-GET /api/session/:sessionId
-GET /api/session/:sessionId/download
-GET /api/session/:sessionId/file/:filename
-```
-
-### File Upload
-```http
-POST /api/upload/:sessionId
-POST /api/upload/:sessionId/complete
-```
-
-### WebSocket Events
-```javascript
-// Client to Server
-join-session
-leave-session
-
-// Server to Client  
-files-uploaded
-session-completed
-```
-
-## 🔐 Security Features
-
-- **Session-based**: Unique session IDs prevent unauthorized access
-- **Time-limited**: Automatic session expiry
-- **File validation**: Type and size restrictions
-- **Rate limiting**: Prevents abuse
-- **CORS protection**: Secure cross-origin requests
-
-## 🎨 Screenshots
-
-*Screenshots would be inserted here showing:*
-- Home page with action buttons
-- QR code generation page
-- File upload interface
-- Real-time notifications
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**WebSocket Connection Failed**
-- Check if server is running on correct port
-- Verify CORS configuration
-
-**Files Not Auto-downloading**
-- Check browser pop-up blocker
-- Verify file permissions
-
-**Session Expired**
-- Sessions expire after 30 minutes by default
-- Create a new session if needed
+- `POST /api/session` - Create session and return QR code
+- `GET /api/session/:id` - Get session status and files
+- `POST /api/upload/init` - Initialize chunked upload
+- `PUT /api/upload/part` - Upload file chunks
+- `POST /api/upload/complete` - Finalize upload
+- `GET /api/session/:id/file/:publicId` - Generate signed download URLs
+- `GET /api/events` - SSE endpoint for real-time updates
+- `GET /api/health` - Application health check
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🔮 Future Enhancements
-
-- [ ] Bulk ZIP download
-- [ ] File preview before download  
-- [ ] User accounts and history
-- [ ] Mobile app versions
-- [ ] Enhanced security options
-- [ ] Cloud storage integration
-- [ ] File sharing analytics
-
-## 🙋‍♂️ Support
-
-For support, please open an issue on GitHub or contact the development team.
-
----
-
-**Reverse QR File Share** - Revolutionizing file sharing with receiver-initiated QR codes! 🚀
+MIT License - see LICENSE file for details.

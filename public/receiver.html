@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receive Files - Reverse QR File Share</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📱 Receive Files</h1>
+            <a href="/" class="back-link">← Back to Home</a>
+        </header>
+
+        <main class="main">
+            <div id="create-session" class="session-creator">
+                <h2>Create File Sharing Session</h2>
+                <div class="form-group">
+                    <label for="expiry-minutes">Session Expiry (minutes):</label>
+                    <select id="expiry-minutes">
+                        <option value="30">30 minutes</option>
+                        <option value="60" selected>1 hour</option>
+                        <option value="120">2 hours</option>
+                        <option value="360">6 hours</option>
+                        <option value="720">12 hours</option>
+                        <option value="1440">24 hours</option>
+                    </select>
+                </div>
+                <button id="create-btn" class="btn btn-primary">Create Session</button>
+            </div>
+
+            <div id="session-active" class="session-active" style="display: none;">
+                <div class="qr-section">
+                    <h2>Share this QR Code</h2>
+                    <div class="qr-container">
+                        <img id="qr-code" src="" alt="QR Code" />
+                    </div>
+                    <p class="qr-instructions">
+                        Scan this QR code with any device to upload files to this session
+                    </p>
+                    <div class="session-info">
+                        <p><strong>Session ID:</strong> <span id="session-id"></span></p>
+                        <p><strong>Expires:</strong> <span id="expires-at"></span></p>
+                        <p><strong>Status:</strong> <span id="session-status" class="status waiting">Waiting</span></p>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <h3>📊 Upload Progress</h3>
+                    <div id="progress-container" class="progress-container">
+                        <div class="no-uploads">No uploads yet. Share the QR code to start receiving files.</div>
+                    </div>
+                </div>
+
+                <div class="files-section">
+                    <h3>📁 Received Files</h3>
+                    <div id="files-list" class="files-list">
+                        <div class="no-files">No files received yet.</div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="refresh-btn" class="btn btn-secondary">Refresh Status</button>
+                    <button id="new-session-btn" class="btn btn-outline">New Session</button>
+                </div>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Creating session...</p>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </main>
+    </div>
+
+    <script src="/js/receiver.js"></script>
+</body>
+</html>

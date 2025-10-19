@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Files - Reverse QR File Share</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📤 Send Files</h1>
+            <a href="/" class="back-link">← Back to Home</a>
+        </header>
+
+        <main class="main">
+            <div id="session-info" class="session-info-card">
+                <h2>📱 File Upload Session</h2>
+                <p><strong>Session ID:</strong> <span id="session-id"></span></p>
+                <p><strong>Status:</strong> <span id="session-status" class="status"></span></p>
+                <p><strong>Expires:</strong> <span id="expires-at"></span></p>
+            </div>
+
+            <div id="upload-section" class="upload-section">
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drop files here or click to select</h3>
+                    <p>Maximum file size: 100MB per file</p>
+                    <p>Maximum total size: 1GB per session</p>
+                    <input type="file" id="file-input" multiple hidden>
+                </div>
+
+                <div id="file-list" class="file-list"></div>
+
+                <div class="upload-actions">
+                    <button id="upload-btn" class="btn btn-primary" disabled>Upload Files</button>
+                    <button id="clear-btn" class="btn btn-secondary">Clear All</button>
+                </div>
+            </div>
+
+            <div id="upload-progress" class="upload-progress" style="display: none;">
+                <h3>⏳ Upload in Progress</h3>
+                <div class="overall-progress">
+                    <div class="progress-bar">
+                        <div id="overall-progress-fill" class="progress-fill"></div>
+                    </div>
+                    <span id="overall-progress-text">0%</span>
+                </div>
+                <div id="file-progress-items" class="file-progress-items"></div>
+            </div>
+
+            <div id="upload-complete" class="upload-complete" style="display: none;">
+                <h3>✅ Upload Complete!</h3>
+                <p>All files have been uploaded successfully.</p>
+                <div class="completion-actions">
+                    <button id="upload-more-btn" class="btn btn-primary">Upload More Files</button>
+                    <a href="/" class="btn btn-outline">Return Home</a>
+                </div>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </main>
+    </div>
+
+    <script src="/js/sender.js"></script>
+</body>
+</html>

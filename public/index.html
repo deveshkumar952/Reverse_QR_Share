@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse QR File Share</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔄 Reverse QR File Share</h1>
+            <p>Secure file sharing through QR codes</p>
+        </header>
+
+        <main class="main">
+            <div class="feature-cards">
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h2>Receive Files</h2>
+                    <p>Create a session and show QR code for others to send you files</p>
+                    <a href="/receive" class="btn btn-primary">Create Session</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">☁️</div>
+                    <h2>How it Works</h2>
+                    <ol class="steps">
+                        <li>Receiver creates a session</li>
+                        <li>QR code is generated and displayed</li>
+                        <li>Sender scans QR code with their device</li>
+                        <li>Files are uploaded securely to cloud storage</li>
+                        <li>Receiver gets real-time progress updates</li>
+                        <li>Files can be downloaded with secure links</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="features">
+                <h3>✨ Features</h3>
+                <div class="feature-list">
+                    <div class="feature">
+                        <strong>🔒 Secure:</strong> Files stored in cloud with signed URLs
+                    </div>
+                    <div class="feature">
+                        <strong>⚡ Real-time:</strong> Live progress updates via Server-Sent Events
+                    </div>
+                    <div class="feature">
+                        <strong>📤 Large Files:</strong> Chunked uploads support files up to 100MB
+                    </div>
+                    <div class="feature">
+                        <strong>🧹 Auto-cleanup:</strong> Sessions automatically expire and cleanup
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Reverse QR File Share. Built with Node.js, Express, MongoDB Atlas, and Cloudinary.</p>
+        </footer>
+    </div>
+</body>
+</html>
