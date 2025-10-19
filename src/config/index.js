@@ -3,7 +3,12 @@ require('dotenv').config();
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: parseInt(process.env.PORT, 10) || 3000,
-  CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:3000',
+
+  // Use the actual deployment URL in production
+  CLIENT_URL: process.env.CLIENT_URL || 
+              (process.env.NODE_ENV === 'production' 
+                ? process.env.RENDER_EXTERNAL_URL || 'https://reverse-qr-share.onrender.com'
+                : 'http://localhost:3000'),
 
   // MongoDB
   MONGODB_URI: process.env.MONGODB_URI,

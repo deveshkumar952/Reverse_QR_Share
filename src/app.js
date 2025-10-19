@@ -14,6 +14,10 @@ const apiRoutes = require('./routes/api');
 
 const app = express();
 
+// Trust proxy - IMPORTANT for deployment behind proxies (Render, Heroku, etc.)
+// This allows Express to correctly read X-Forwarded-For headers
+app.set('trust proxy', 1);
+
 // Security middleware with relaxed CSP for our application
 app.use(helmet({
   contentSecurityPolicy: {
@@ -23,7 +27,7 @@ app.use(helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
       scriptSrc: ["'self'"],
-      scriptSrcAttr: ["'none'"], // This blocks inline event handlers, which is good - we're using event listeners instead
+      scriptSrcAttr: ["'none'"],
       connectSrc: ["'self'", "https://api.cloudinary.com", "https://res.cloudinary.com"]
     }
   }

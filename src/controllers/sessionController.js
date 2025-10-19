@@ -28,7 +28,9 @@ class SessionController {
       await session.save();
 
       // Generate QR code
-      const uploadUrl = `${config.CLIENT_URL}/send/${sessionId}`;
+      const baseUrl = config.CLIENT_URL;
+const uploadUrl = `${baseUrl}/send/${sessionId}`;
+
       const qrDataUrl = await QRCodeService.generateQRCode(uploadUrl);
 
       logger.info('Session created', { 
