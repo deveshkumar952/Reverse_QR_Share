@@ -1,14 +1,35 @@
 require('dotenv').config();
 
+// Helper function to get the correct base URL
+function getBaseUrl() {
+  // 1. If CLIENT_URL is explicitly set, use it
+  if (process.env.CLIENT_URL) {
+    return process.env.CLIENT_URL;
+  }
+
+  // 2. Check if we're on Render (Render sets RENDER env var)
+  if (process.env.RENDER) {
+    // Use RENDER_EXTERNAL_URL if available
+    if (process.env.RENDER_EXTERNAL_URL) {
+      return process.env.RENDER_EXTERNAL_URL;
+    }
+    // Fallback to Render domain
+    return 'https://reverse-qr-share.onrender.com';
+  }
+
+  // 3. Production environment
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://reverse-qr-share.onrender.com';
+  }
+
+  // 4. Default to localhost for development
+  return 'http://localhost:3000';
+}
+
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: parseInt(process.env.PORT, 10) || 3000,
-
-  // Use the actual deployment URL in production
-  CLIENT_URL: process.env.CLIENT_URL || 
-              (process.env.NODE_ENV === 'production' 
-                ? process.env.RENDER_EXTERNAL_URL || 'https://reverse-qr-share.onrender.com'
-                : 'http://localhost:3000'),
+  CLIENT_URL: getBaseUrl(),
 
   // MongoDB
   MONGODB_URI: process.env.MONGODB_URI,
